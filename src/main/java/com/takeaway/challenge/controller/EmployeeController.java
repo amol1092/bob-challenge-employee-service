@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.takeaway.challenge.helper.EmployeeRequestBody;
-import com.takeaway.challenge.helper.TakeawayResponse;
+import com.takeaway.challenge.helper.TakeawayHttpResponse;
 import com.takeaway.challenge.model.Employee;
 import com.takeaway.challenge.service.IEmployeeService;
 import com.takeaway.challenge.util.Constants;
@@ -28,50 +28,50 @@ public class EmployeeController {
 	IEmployeeService employeeService;
 
 	@PostMapping
-	public TakeawayResponse create(@RequestBody EmployeeRequestBody employeeRequest) 
+	public TakeawayHttpResponse create(@RequestBody EmployeeRequestBody employeeRequest) 
 			throws ParseException {
 		try {
 			Employee employee = employeeService.create(employeeRequest);
-			return TakeawayResponse.success("created", HttpStatus.CREATED, employee);
+			return TakeawayHttpResponse.success("created", HttpStatus.CREATED, employee);
 		} catch(Exception e) {
-			return TakeawayResponse.failure(Constants.EMPLOYEE_CREATE_BAD_REQUEST_RESPONSE_MESSAGE,
+			return TakeawayHttpResponse.failure(Constants.EMPLOYEE_CREATE_BAD_REQUEST_RESPONSE_MESSAGE,
 					HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	@GetMapping(Constants.ID_URL)
-	public TakeawayResponse getEmployee(@PathVariable("id") UUID id) {
+	public TakeawayHttpResponse getEmployee(@PathVariable("id") UUID id) {
 		try {
 			Employee employee = employeeService.getById(id);
-			return TakeawayResponse.success(Constants.EMPLOYEE_FOUND_MESSAGE, 
+			return TakeawayHttpResponse.success(Constants.EMPLOYEE_FOUND_MESSAGE, 
 					HttpStatus.OK, employee);
 		} catch(Exception e) {
-			return TakeawayResponse.failure(Constants.EMPLOYEE_NOT_FOUND_MESSAGE, 
+			return TakeawayHttpResponse.failure(Constants.EMPLOYEE_NOT_FOUND_MESSAGE, 
 					HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	@PutMapping(Constants.ID_URL)
-	public TakeawayResponse updateEmployee(@PathVariable("id") UUID id, 
+	public TakeawayHttpResponse updateEmployee(@PathVariable("id") UUID id, 
 			@RequestBody EmployeeRequestBody employeeRequest) throws ParseException {
 		try {
 			Employee employee = employeeService.update(id, employeeRequest);
-			return TakeawayResponse.success(Constants.UPDATED_RESPONSE_MESSAGE, 
+			return TakeawayHttpResponse.success(Constants.UPDATED_RESPONSE_MESSAGE, 
 					HttpStatus.OK, employee);
 		} catch(Exception e) {
-			return TakeawayResponse.failure(Constants.EMPLOYEE_NOT_FOUND_MESSAGE, 
+			return TakeawayHttpResponse.failure(Constants.EMPLOYEE_NOT_FOUND_MESSAGE, 
 					HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	@DeleteMapping(Constants.ID_URL)
-	public TakeawayResponse deleteEmployee(@PathVariable("id") UUID id) {
+	public TakeawayHttpResponse deleteEmployee(@PathVariable("id") UUID id) {
 		try {
 			employeeService.delete(id);
-			return TakeawayResponse.success(Constants.DELETED_RESPONSE_MESSAGE,
+			return TakeawayHttpResponse.success(Constants.DELETED_RESPONSE_MESSAGE,
 					HttpStatus.OK, null);
 		} catch(Exception e) {
-			return TakeawayResponse.failure(Constants.EMPLOYEE_NOT_FOUND_MESSAGE, 
+			return TakeawayHttpResponse.failure(Constants.EMPLOYEE_NOT_FOUND_MESSAGE, 
 					HttpStatus.BAD_REQUEST); 
 		}
 	}

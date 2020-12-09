@@ -26,4 +26,6 @@ public class Constants {
 	
 	public static final String NOT_DELETED_RESPONSE_MESSAGE = "not deleted";
 	
+	public static final String EMPLOYEE_EVENTS_TOPIC = "employee.events";
+	
 }
