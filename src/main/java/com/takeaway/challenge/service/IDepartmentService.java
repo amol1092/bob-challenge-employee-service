@@ -8,5 +8,8 @@ public interface IDepartmentService {
 	
 	public Department get(String name) throws Exception;
 	
+	//currently used only for tests
+	public void delete(Department department);
+	
 }
 

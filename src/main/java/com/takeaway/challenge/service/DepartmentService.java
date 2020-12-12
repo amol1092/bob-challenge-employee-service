@@ -31,4 +31,9 @@ public class DepartmentService implements IDepartmentService {
 		}
 	}
 
+	@Override
+	public void delete(Department department) {
+		departmentRepository.delete(department);
+	}
+	
 }
